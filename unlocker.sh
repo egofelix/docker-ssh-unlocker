@@ -50,8 +50,10 @@ fi
 
 echo -e ${FULLKEY} | base64 -d > /tmp/id_rsa && chmod 0600 /tmp/id_rsa
 echo "[${HOST_NAME}]:${HOST_PORT} $HOST_KEY" > /tmp/known_hosts
+PUBKEY=`ssh-keygen -y -f /tmp/id_rsa`
 
 while true; do
+  echo "Using key: ${PUBKEY}"
   echo -n "${HOST_PASS}" | ssh -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /tmp/id_rsa" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
   sleep 30
 done
