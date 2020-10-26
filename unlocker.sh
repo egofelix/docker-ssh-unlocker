@@ -54,7 +54,7 @@ PUBKEY=`ssh-keygen -y -f /tmp/id_rsa`
 
 while true; do
   echo "Trying to unlock using key: ${PUBKEY}"
-  echo -n "${HOST_PASS}" | ssh -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /tmp/id_rsa" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
+  echo -n "${HOST_PASS}" | ssh -m hmac-sha2-256 -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /tmp/id_rsa" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
   sleep 30
 done
 
