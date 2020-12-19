@@ -48,11 +48,12 @@ fi;
 # Generate known_hosts file
 mkdir -p ~/.ssh/
 echo "[${HOST_NAME}]:${HOST_PORT} ${HOST_PUBKEY}" > /tmp/known_hosts
+echo "${HOST_NAME} ${HOST_PUBKEY}" >> /tmp/known_hosts
 PUBKEY=`ssh-keygen -y -f /data/private.key`
 
 while true; do
   echo "Trying to unlock using key: ${PUBKEY}"
-  echo -n "${HOST_UNLOCK_KEY}" | ssh -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /tmp/id_rsa" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
+  echo -n "${HOST_UNLOCK_KEY}" | ssh -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /data/private.key" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
   sleep 30
 done
 
