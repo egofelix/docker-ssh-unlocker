@@ -18,12 +18,12 @@ fi;
 
 # Check if SSH Public Key is provided
 if [[ -z ${HOST_PUBKEY:-} ]]; then
-  if [[ -f "/data/host.key" ]]; then
-    HOST_PUBKEY=$(cat /data/host.key)
+  if [[ -f "/data/host.pub" ]]; then
+    HOST_PUBKEY=$(cat /data/host.pub)
   fi;
 fi
 if [[ -z ${HOST_PUBKEY:-} ]]; then
-  echo "Please provide the ssh public key of the host in HOST_SSH_PUB_KEY or /data/host.key"
+  echo "Please provide the ssh public key of the host in HOST_SSH_PUB_KEY or /data/host.pub"
   exit
 fi;
 
