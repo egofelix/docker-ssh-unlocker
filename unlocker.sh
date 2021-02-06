@@ -53,7 +53,7 @@ PUBKEY=`ssh-keygen -y -f /data/private.key`
 
 while true; do
   echo "Trying to unlock using key: ${PUBKEY}"
-  echo -n "${HOST_UNLOCK_KEY}" | ssh -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /data/private.key" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
+  echo -n "${HOST_UNLOCK_KEY}" | ssh -o "UserKnownHostsFile /tmp/known_hosts" -o "IdentityFile /data/private.key" -o "ConnectTimeout 3" -o "ConnectionAttempts 1" -p ${HOST_PORT} ${HOST_USER}@${HOST_NAME} > /dev/null 2>&1
   sleep 30
 done
 
